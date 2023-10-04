@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>말도 안 되는 하루</title>
+    <style>
+        /* 폰트 */
+        @font-face {
+        font-family: 'dalmoori';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/dalmoori.woff') 
+        format('woff');
+        font-weight: normal;
+        font-style: normal;
+        }
+        html {font-size: 1.6rem;}
+        body {background-color: #e6e6e6; position: relative;}
+        header {padding-bottom:90px; margin:0; padding-top:20px; }
+        .제목{font-family: 'dalmoori';
+            padding: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 2);
+            border-radius: 100px;
+            background-color:gray;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 2); 
+            position: absolute;
+            left:50%;
+            width: 600px;
+            transform: translate(-50%);
+            }
+
+        .제목 p{color: gray;
+            text-decoration: none;
+            display: block;
+            font-size: 1.6rem;
+            font-family: 'dalmoori';
+            text-shadow: 3px 2px 4px rgba(0, 0, 0, 2);
+            text-align:center; 
+            margin:0;}
+        .제목 p:hover {color: white;
+            text-shadow: 8px 5px 5px rgba(0, 0, 0, 4);
+            cursor:pointer;
+            }
+        /* dropdown 박스 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1E90FF;
+            border-radius: 50px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 2);
+            margin-top: -5px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        /* dropdown 텍스트 */
+        .dropdown-content p {
+            color:#1E90FF;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1.6rem;
+            font-family: 'dalmoori';
+            text-shadow: 3px 2px 4px rgba(0, 0, 0, 2);
+            cursor:pointer;
+        }
+
+        .dropdown-content p:hover {
+            color: white;
+            text-shadow: 8px 5px 5px rgba(0, 0, 0, 4);
+            
+        }
+
+        /* 버튼 */
+        .custom-button {
+            border:0;
+            outline:0;
+            font-family: 'dalmoori';
+            font-size: 1.6rem;
+            box-shadow: 3px 3px 4px inset rgba(0, 0, 0, 2);
+            border-radius: 50px;
+            padding: 20px;
+            background-color: #1E90FF;
+            color: #1E90FF;
+            text-shadow: 2px 3px 4px rgba(0, 0, 0, 4);
+            margin-bottom: 15px;
+
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        p img{width:60px;height:60px;box-shadow: 2px 2px 4px rgba(0, 0, 0, 2);}
+        img{width:60px; margin-top: 10px; height:60px;}
+        .left {left:0px; top:80px; position: absolute; padding-bottom: 60px;}
+        .right {right:20px; top:80px; position: absolute;padding-bottom: 60px;}
+        .padding {padding-bottom:100px;}
+        .gray{background-color: #e6e6e6; color: gray;}
+        .main{align-content: center; justify-content: center;}
+
+        /*타이머*/
+        #clock {
+        font-family: 'dalmoori';
+        font-size: 3rem;
+        margin-top: 20px; 
+        position: absolute;
+            right:20px;
+        }
+
+        #stopButton {
+            font-family: 'dalmoori';
+            background-color: red;
+            color: white;
+            border: 50px;
+            padding: 10px 20px;
+            font-size: 1rem; 
+            position: absolute;
+            margin-top: 40px;
+            right:380px;
+        }
+
+        #stopButton:hover {background-color: darkred;}
+
+        /*점*/
+        .dot {
+        width: 6px;
+        height: 6px;
+        background-color: gray;
+        border-radius: 50%;
+        position: absolute;
+        z-index: -1000;
+        }
+    </style>
+</head>
+<body  id="container">
+    <header>
+        <div class="제목"><p>말도 안 되는 하루</p></div>
+    </header>
+    <div class="padding">
+        <div class="left">
+            <div class="dropdown-container">
+                <button class="custom-button gray 날씨" style="box-shadow:none; border: none; outline: none;" onclick="toggleDropdown(this, 'dropdown-1')">날씨</button>
+                <div id="dropdown-1" class="dropdown-content">
+                    <img onclick="selectOption(this)" src="https://em-content.zobj.net/source/microsoft-teams/363/sun_2600-fe0f.png">
+                    <img onclick="selectOption(this)" src="https://em-content.zobj.net/source/microsoft-teams/363/sun-behind-large-cloud_1f325-fe0f.png">
+                    <img onclick="selectOption(this)" src="https://em-content.zobj.net/source/microsoft-teams/363/cloud-with-rain_1f327-fe0f.png">
+                    <img onclick="selectOption(this)" src="https://em-content.zobj.net/source/microsoft-teams/363/cloud-with-lightning-and-rain_26c8-fe0f.png">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="dropdown-container">
+                <button style="box-shadow:none; border: none; outline: none;" class="custom-button gray 기분" onclick="toggleDropdown(this, 'dropdown-2')">기분</button>
+                <div id="dropdown-2" class="dropdown-content">
+                    <img onclick="selectOption(this)" src="https://emojisup.org/images/emoji/skype/emoticons-1-0/grinning-face-with-smiling-eyes.png">
+                    <img onclick="selectOption(this)" src="https://emojisup.org/images/emoji/skype/emoticons-1-0/grinning-face-with-sweat.png">
+                    <img onclick="selectOption(this)" src="https://emojisup.org/images/emoji/skype/emoticons-1-0/crying-face.png">
+                    <img onclick="selectOption(this)" src="https://emojisup.org/images/emoji/skype/emoticons-1-0/unamused-face.png">
+                    <img onclick="selectOption(this)" src="https://emojisup.org/images/emoji/skype/emoticons-1-0/face-with-symbols-on-mouth.png">      
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main"> 
+        <div class="dropdown-container">
+            <button class="custom-button 오늘은" onclick="toggleDropdown(this, 'dropdown-오늘은')">오늘</button>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 새벽에" onclick="toggleDropdown(this, 'dropdown-3')">오전 1시에</button>
+            <div id="dropdown-3" class="dropdown-content">
+                <p onclick="selectOption(this)">오전 7시에</p>
+                <p onclick="selectOption(this)">오전 9시에</p>
+                <p onclick="selectOption(this)">오후 2시에</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 이상하게" onclick="toggleDropdown(this, 'dropdown-4')">이상하게</button>
+            <div id="dropdown-4" class="dropdown-content">
+                <p onclick="selectOption(this)">어이없게</p>
+                <p onclick="selectOption(this)">평소 그랬듯이</p>
+                <p onclick="selectOption(this)">요상하게</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-5')">눈이 떠졌다</button>
+            <div id="dropdown-5" class="dropdown-content">
+                <p onclick="selectOption(this)">바나나 변을 누었다.</p>
+                <p onclick="selectOption(this)">이마에 왕 여드름이 났다.</p>
+                <p onclick="selectOption(this)">날벼락이 떨어졌다.</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 그리고" onclick="toggleDropdown(this, 'dropdown-6')">그리고</button>
+            
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 몇분" onclick="toggleDropdown(this, 'dropdown-7')">얼마 지나지 않아서</button>
+            <div id="dropdown-7" class="dropdown-content">
+                <p onclick="selectOption(this)">10분 뒤에</p>
+                <p onclick="selectOption(this)">1시간 뒤에</p>
+                <p onclick="selectOption(this)">2시간 뒤에</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-8')">손을 확인해 보니</button>
+            <div id="dropdown-8" class="dropdown-content">
+                <p onclick="selectOption(this)">다리를 보았는데</p>
+                <p onclick="selectOption(this)">머리를 긁었는데</p>
+                <p onclick="selectOption(this)">눈을 비볐더니</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-9')">불쾌한 무언가가</button>
+            <div id="dropdown-9" class="dropdown-content">
+                <p onclick="selectOption(this)">향유고래 똥이</p>
+                <p onclick="selectOption(this)">송충이가</p>
+                <p onclick="selectOption(this)">바퀴벌레가</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-10')">춤추면서</button>
+            <div id="dropdown-10" class="dropdown-content">
+                <p onclick="selectOption(this)">코를 후비면서</p>
+                <p onclick="selectOption(this)">좌우로 움직이면서</p>
+                <p onclick="selectOption(this)">날라다니면서</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-11')">소리를 질렀다.</button>
+            <div id="dropdown-11" class="dropdown-content">
+                <p onclick="selectOption(this)">번식하고 있었다</p>
+                <p onclick="selectOption(this)">노래를 부르고 있었다.</p>
+                <p onclick="selectOption(this)">춤을 추고 있었다.</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-12')">그걸 본 나는</button>
+       </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-13')">아이패드를 꺼내서</button>
+            <div id="dropdown-13" class="dropdown-content">
+                <p onclick="selectOption(this)">핸드폰을 꺼내서</p>
+                <p onclick="selectOption(this)">망치를 꺼내서</p>
+                <p onclick="selectOption(this)">배드민턴채를 꺼내서</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-14')">셀카를 찍었다.</button>
+            <div id="dropdown-14" class="dropdown-content">
+                <p onclick="selectOption(this)">인스타 라이브를 켰다.</p>
+                <p onclick="selectOption(this)">둘로 쪼개었다.</p>
+                <p onclick="selectOption(this)">사정없이 휘둘렀다.</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-15')">재미있는</button>
+            <div id="dropdown-15" class="dropdown-content">
+                <p onclick="selectOption(this)">멋진</p>
+                <p onclick="selectOption(this)">이상한</p>
+                <p onclick="selectOption(this)">귀여운</p>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="custom-button 눈이" onclick="toggleDropdown(this, 'dropdown-16')">하루였다.</button>
+        </div>
+    </div>
+    <div id="clock"><span id="time">00:00:00</span></div>
+    <button id="stopButton">저장</button>
+
+
+    <script type="text/javascript">
+         function toggleDropdown(button, dropdownId) {
+        var dropdown = document.getElementById(dropdownId);
+        var isDisplayed = dropdown.style.display === 'block';
+        dropdown.style.display = isDisplayed ? 'none' : 'block';
+    }
+
+    function selectOption(element) {
+        var dropdown = element.parentElement;
+        var button = dropdown.previousElementSibling;
+
+        if (element.tagName === "IMG") {
+            var selectedImage = element.src;
+            var imgElement = document.createElement("img");
+            imgElement.src = selectedImage;
+            button.innerHTML = ""; 
+            button.appendChild(imgElement);
+        } else {
+            var selectedText = element.textContent;
+            button.textContent = selectedText;
+        }
+
+        toggleDropdown(button, dropdown.id);
+    }
+
+        /*타이머*/
+
+        const timeDisplay = document.getElementById('time');
+        const stopButton = document.getElementById('stopButton');
+        let timer;
+
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function startClock() {
+            timer = setInterval(updateTime, 1000);
+            updateTime();
+        }
+
+        function stopClock() {
+            clearInterval(timer);
+        }
+
+        startClock();
+
+        /*멈춤*/
+        stopButton.addEventListener('click', stopClock);
+
+        /*dot*/
+        document.addEventListener('mousemove', (e) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.left = e.pageX + 'px';
+        dot.style.top = e.pageY + 'px';
+        document.getElementById('container').appendChild(dot);
+
+        // RGB //
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // 2초마다 색상 업데이트 //
+        setInterval(() => {
+            dot.style.backgroundColor = getRandomColor();
+        }, 1000);
+    });
+
+    </script>
+</body>
+</html>
